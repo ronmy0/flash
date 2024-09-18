@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Flash Visualizer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #content {
+            text-align: center;
+        }
+
+        #countdown, #flashScreen {
+            font-size: 3rem;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #flashScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>How many milliseconds do you want the white screen to flash?</h1>
+        <input type="number" id="timeInput" placeholder="Enter milliseconds" />
+        <button id="startButton">Start</button>
+        <p id="countdown" class="hidden"></p>
+    </div>
+    <div id="flashScreen" class="hidden"></div>
+
+    <script>
+        const timeInput = document.getElementById("timeInput");
+        const startButton = document.getElementById("startButton");
+        const countdownDisplay = document.getElementById("countdown");
+        const flashScreen = document.getElementById("flashScreen");
+        const content = document.getElementById("content");
+
+        startButton.addEventListener("click", () => {
+            const timeInMilliseconds = parseInt(timeInput.value);
+
+            if (isNaN(timeInMilliseconds) || timeInMilliseconds <= 0) {
+                alert("Please enter a valid number of milliseconds.");
+                return;
+            }
+
+            startCountdown(timeInMilliseconds);
+        });
+
+        function startCountdown(timeInMilliseconds) {
+            let countdown = 3;
+            countdownDisplay.textContent = countdown;
+            countdownDisplay.classList.remove("hidden");
+
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownDisplay.textContent = countdown;
+
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    countdownDisplay.classList.add("hidden");
+                    flashWhiteScreen(timeInMilliseconds);
+                }
+            }, 1000);
+        }
+
+        function flashWhiteScreen(duration) {
+            // Show the white screen
+            flashScreen.classList.remove("hidden");
+
+            setTimeout(() => {
+                // Hide the white screen after the specified duration
+                flashScreen.classList.add("hidden");
+                resetScreen();
+            }, duration);
+        }
+
+        function resetScreen() {
+            timeInput.value = "";
+            content.style.display = "flex";
+        }
+    </script>
+</body>
+</html>
