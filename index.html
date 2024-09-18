@@ -12,7 +12,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: #121212; /* Dark background */
+            color: #f0f0f0; /* Light text */
             font-family: Arial, sans-serif;
         }
 
@@ -22,7 +23,7 @@
 
         #countdown, #flashScreen {
             font-size: 3rem;
-            color: #333;
+            color: #f0f0f0;
         }
 
         .hidden {
@@ -35,13 +36,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: white;
+            background-color: white; /* Flash is still white */
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #1f1f1f;
+            color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333333;
         }
     </style>
 </head>
 <body>
     <div id="content">
-        <h1>How many milliseconds do you want the white screen to flash?</h1>
+        <h1>Input</h1>
         <input type="number" id="timeInput" placeholder="Enter milliseconds" />
         <button id="startButton">Start</button>
         <p id="countdown" class="hidden"></p>
